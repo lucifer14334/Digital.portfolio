@@ -1,0 +1,625 @@
+
+         <!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+     <style>
+    /* General Body Styling */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+        margin: 0;
+    }
+
+    /* Photo Container */
+    .photo-container {
+        perspective: 1000px; /* Creates the 3D effect perspective */
+        display: inline-block;
+    }
+
+    /* Photo Styling with 3D Effects */
+    .photo {
+        width: 200px;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5), -5px -5px 15px rgba(255, 255, 255, 0.7); /* 3D shadow effect */
+        transform: rotateX(0deg) rotateY(0deg); /* Initial state */
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    /* Shake Animation */
+    @keyframes shake {
+        0% { transform: translate(2px, 2px) rotate(0deg); }
+        25% { transform: translate(-2px, -2px) rotate(-1deg); }
+        50% { transform: translate(2px, -2px) rotate(1deg); }
+        75% { transform: translate(-2px, 2px) rotate(0deg); }
+        100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    .photo.shake {
+        animation: shake 0.4s; /* Duration of shake */
+    }
+
+    
+     
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            height: 100vh; /* Full height of the viewport */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        header, section, footer {
+            padding: 20px;
+            margin: 0 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5em;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: inherit;
+        }
+
+        /* Light Mode */
+        .light-mode {
+            background-color: #f5f5f5;
+            color: #000;
+        }
+
+        .light-mode header, .light-mode section, .light-mode footer {
+            background: linear-gradient(135deg, #89f7fe, #66a6ff);
+            color: white;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background-color: #121212;
+            color: #fff;
+        }
+
+        .dark-mode header, .dark-mode section, .dark-mode footer {
+            background: linear-gradient(135deg, #333333, #121212);
+            color: #cccccc;
+        }
+
+        /* Toggle Button */
+        .toggle-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #007bff, #24a8e6);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .toggle-button:hover {
+            background: linear-gradient(135deg, #0056b3, #007bff);
+            transform: scale(1.0);
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .toggle-button:active {
+            transform: scale(0.70);
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .toggle-button:focus {
+            outline: none;
+        }
+
+        footer {
+            text-align: center;
+        }
+        @keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    opacity: 0; /* Start invisible */
+    animation: fadeInUp 0.5s ease-in-out forwards; /* Trigger fade-in */
+}
+
+/* Ensure smooth animation on page load */
+body > * {
+    animation: fadeInUp 1.s ease-in-out forwards;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+}
+
+header, section, footer {
+    margin: 25px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 20px 5px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
+    animation: fadeInUp 1s ease-in-out;
+}
+
+header {
+    text-align: center;
+    color:#fff;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    font-size: 2em;
+    color: #fff;
+    text-shadow: 1px 3px 2px #aaa;
+}
+
+p, ul {
+    color: #fff;
+}
+
+.icon {
+    color: #007bff;
+    margin-right: 8px;
+}
+
+.skills, .projects {
+/* General Styles for the Skills Section */
+#skills {
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    padding: 50px 0;
+    color: white;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.skills {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+/* Skill Item Styles */
+.skill {
+    width: 250px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 60px;
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 4px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Icon Styles */
+.icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.skill:hover .icon {
+    color: #ffcc00; /* Gold color on hover */
+}
+.skills {
+    margin: 30px 0;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.skill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.icon {
+    font-size: 35px;
+    margin-right: 20px;
+    color: #666;
+}
+
+.skill-info {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.skill-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #fff;
+    font-size: 16px;
+}
+
+.progress-bar {
+    background: #e0e0e0;
+    border-radius: 10px;
+    height: 10px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.progress {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(to right, #4caf50, #8bc34a);
+    transition: width 1s ease-in-out;
+}
+
+.percentage {
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Adding smooth animations */
+@keyframes growProgress {
+    from {
+        width: 0;
+    }
+    to {
+        width: var(--progress-width);
+    }
+}
+
+.progress {
+    animation: growProgress 1s ease-out forwards;
+}
+
+/* Skill Name Styles */
+.skill-name {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Progress Bar Styles */
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #f1f1f1;
+    border-radius: 30px; /* Makes the progress bar cylindri*/
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress {
+    height: 100%;
+    width: 0;
+    border-radius: 30px; /* Ensures the progress itself is cylindrical */
+    transition: width 1s ease;
+}
+
+/* Skill Progress Widths (These can be adjusted to reflect your skill level) */
+.html-css-js {
+    width: 90%;
+    background-color: #ff6f61;
+}
+
+.sql-mongo {
+    width: 75%;
+    background-color: #4caf50;
+}
+
+.python-java {
+    width: 80%;
+    background-color: #2196f3;
+}
+
+.data-analysis {
+    width: 70%;
+    background-color: #ffeb3b;
+}
+
+/* Animation */
+@keyframes progressBarAnimation {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.skills div, .projects div {
+    flex: 1;
+    padding: 10px;
+    background: light gray;
+    border-radius: 9px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer a {
+    color: #28A745;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #1F7A2D;
+}
+
+
+
+a:hover {
+    color: green;
+    text-decoration: underline;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.form-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-section input, .form-section textarea {
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 1em;
+    margin-top: 10px;
+}
+
+.form-section textarea {
+    height: 100px;
+    resize: none;
+}
+
+.form-section button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-section button:hover {
+    background: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #about {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .form-section input, .form-section textarea {
+        width: 90%;
+    }
+}
+</style>
+</head>
+
+<body>
+    <body class="light-mode">
+    <!-- Dark Mode/Light Mode Button -->
+    <button class="toggle-button" onclick="toggleMode()">🌚🙈Mode</button>
+    <body class="light-mode">
+   
+     <link rel="stylesheet" href=".css">
+    <header>    
+       
+        <h1>A.Antony Albert</h1>
+        <nav>
+            <ul style="list-style: none; display: flex; justify-content: center; padding: 0; margin: 0;">
+                <li style="margin: 0 15px;"><a href="#about" style="color: #fff; text-decoration: none;">About</a></li>
+                <li style="margin: 0 15px;"><a href="#education" style="color: #fff; text-decoration: none;">Education</a></li>
+                <li style="margin: 0 15px;"><a href="#skills" style="color: #fff; text-decoration: none;">Skills</a></li>
+                <li style="margin: 0 15px;"><a href="#projects" style="color: #fff; text-decoration: none;">Projects</a></li>
+                <li style="margin: 0 15px;"><a href="#contact" style="color: #fff; text-decoration: none;">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="about" style="display: flex; align-items: center; gap: 20px;">
+               <img src="anto.jpg" alt="3D Photo" width="400" class="photo" id="photo"style="width: 150px; height: 150px; border-radius: 50%; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);">
+    </div>
+        
+            <h2>About Me</h2>
+            <p>Hello! I'm a passionate Computer Science student specializing in web development, artificial intelligence, and software engineering. I aim to leverage my skills to create impactful solutions.</p>
+        </div>
+    </section>
+    <section id="education">
+        <h2>Education</h2>
+        <ul>
+            <li>B.Sc in Computer Science, Madras University (2022 - 2025)</li>
+            <li>govt A.D.W Higher Secondary,  School (2020 - 2022)</li>
+        </ul>
+    </section>
+    
+    <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills">
+        <div class="skill">
+            <i class="fas fa-laptop-code icon"></i>
+            <div class="skill-name">HTML, CSS, JavaScript, React</div>
+            <div class="progress-bar ">
+                <div class="progress html-css-js"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <i class="fas fa-database icon"></i>
+            <div class="skill-name">SQL, MongoDB</div>
+            <div class="progress-bar">
+                <div class="progress sql-mongo"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <i class="fas fa-code icon"></i>
+            <div class="skill-name">Python, Java</div>
+            <div class="progress-bar">
+                <div class="progress python-java"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <i class="fas fa-chart-bar icon"></i>
+            <div class="skill-name">Data Analysis (Pandas, NumPy)</div>
+            <div class="progress-bar">
+                <div class="progress data-analysis"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects">
+            <div><i class="fas fa-globe icon"></i> <strong>Portfolio Website</strong> - Designed a personal portfolio showcasing my skills.</div>
+            <div><i class="fas fa-cloud icon"></i> <strong>Weather Application</strong> - Built a weather app using OpenWeather API.</div>
+            <div><i class="fas fa-robot icon"></i> <strong>AI Chatbot</strong> - Developed a chatbot using Python and NLP techniques.</div>
+        </div>
+    </section>
+    
+            <script src=".js"></script>
+                      
+        </form>
+        <footer id="contact">
+    <p>Mail📬: <a href="mailto:antonyalbert675@gmail.com">antonyalbert675@gmail.com</a></p>
+    <p>@insta: <a href="https://www.instagram.com/__lucifer_.x._?igsh=bnR2eTRwbXB1ZGtr" target="_blank">.       __lucifer_.x._</a></p>
+    <form class="form-section">
+        <input type="text" placeholder="Enter your name" required>
+        <input type="email" placeholder="Enter your email" required>
+        <textarea placeholder="Leave your comment..."></textarea>
+        <button type="submit">Send</button>
+    </form>
+    <!-- Download Button -->
+    <section id="download" class="section">
+    <center><h4>Download My Resume 📜</h4>
+    <a href="anto 2.jpg" download class="download-button">Download 📥</a>
+</section>
+    </footer>
+    
+    <script>
+    const photo = document.getElementById('photo');
+
+    // Detect touch movement and adjust photo's position dynamically
+    photo.addEventListener('touchmove', (e) => {
+        const rect = photo.getBoundingClientRect(); // Get photo dimensions and position
+        const touch = e.touches[0]; // Get touch point
+        const x = ((touch.clientX - rect.left) / rect.width - 0.5) * 2; // Normalize x to [-1, 1]
+        const y = ((touch.clientY - rect.top) / rect.height - 0.5) * 2; // Normalize y to [-1, 1]
+
+        // Apply 3D rotation based on touch position
+        photo.style.transform = `rotateX(${y * 20}deg) rotateY(${-x * 20}deg) scale(1.1)`;
+        photo.style.boxShadow = `10px 10px 30px rgba(0, 0, 0, 0.5), -5px -5px 15px rgba(255, 255, 255, 0.7)`;
+    });
+
+    // Add shake effect when the touch ends
+    photo.addEventListener('touchend', () => {
+        // Reset photo position
+        photo.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+        photo.style.boxShadow = '10px 50px 10px rgba(0, 0, 0, 0.5), -5px -5px 15px rgba(255, 255, 255, 0.7)';
+
+        // Add the "shake" class to trigger animation
+        photo.classList.add('shake');
+
+        // Remove the "shake" class after animation is complete
+        setTimeout(() => {
+            photo.classList.remove('shake');
+        }, 400); // Match the duration of the shake animation
+    });
+    
+   
+        function toggleMode() {
+            const body = document.body;
+            const button = document.querySelector('.toggle-button');
+
+            // Toggle light and dark mode
+            if (body.classList.contains('light-mode')) {
+                body.classList.replace('light-mode', 'dark-mode');
+                button.textContent = '🌝🙉Mode'; // Update button text
+            } else {
+                body.classList.replace('dark-mode', 'light-mode');
+                button.textContent = '🌚🙈Mode'; // Update button text
+            }
+        }
+    </script>
+    
+   
+</body>
+</html>
+         
